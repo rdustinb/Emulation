@@ -1,0 +1,76 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.box_version = "12.20241217.1"
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider "docker" do |v|
+    # Optional
+    v.gui = false
+    v.memory = 1024
+    v.cpus = 1
+  end
+
+  # Define the different servers
+  config.vm.define "server1" do |server1|
+    server1.vm.hostname = "server1.test"
+    server1.vm.network :private_network, ip: "192.168.86.11"
+  end
+
+  config.vm.define "server2" do |server2|
+    server2.vm.hostname = "server2.test"
+    server2.vm.network :private_network, ip: "192.168.86.12"
+  end
+
+  config.vm.define "server3" do |server3|
+    server3.vm.hostname = "server3.test"
+    server3.vm.network :private_network, ip: "192.168.86.13"
+  end
+
+  config.vm.define "server4" do |server4|
+    server4.vm.hostname = "server4.test"
+    server4.vm.network :private_network, ip: "192.168.86.14"
+  end
+
+end
+
+##################################################
+## For VirtualBox
+#Vagrant.configure("2") do |config|
+#
+#  config.vm.box = "generic/debian12"
+#
+#  config.ssh.insert_key = false
+#
+#  config.vm.synced_folder ".", "/vagrant", disabled: true
+#
+#  # How VirtualBox should setup every VM
+#  config.vm.provider :virtualbox do |v|
+#    # If the memory is set too low, the machine will get stuck
+#    # booting up, careful!
+#    v.memory = 1024
+#    v.cpus = 1
+#    v.linked_clone = true
+#  end
+#
+#  # Define the different servers
+#  config.vm.define "server1" do |server1|
+#    server1.vm.hostname = "server1.test"
+#    server1.vm.network :private_network, ip: "192.168.17.10"
+#  end
+#
+#  config.vm.define "server2" do |server2|
+#    server2.vm.hostname = "server2.test"
+#    server2.vm.network :private_network, ip: "192.168.17.11"
+#  end
+#
+#  config.vm.define "server3" do |server3|
+#    server3.vm.hostname = "server3.test"
+#    server3.vm.network :private_network, ip: "192.168.17.12"
+#  end
+#
+#end
+
